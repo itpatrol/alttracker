@@ -12,9 +12,9 @@
  * Queries the database for info, adds RDFa info if applicable, and generates
  * the render array that will be used to render the page.
  */
-function tracker_page($account = NULL, $set_title = FALSE) {
+function alttracker_page($account = NULL, $set_title = FALSE) {
   if ($account) {
-    $query = db_select('tracker_user', 't')->extend('PagerDefault');
+    $query = db_select('alttracker_user', 't')->extend('PagerDefault');
     $query->condition('t.uid', $account->uid);
 
     if ($set_title) {
@@ -25,7 +25,7 @@ function tracker_page($account = NULL, $set_title = FALSE) {
     }
   }
   else {
-    $query = db_select('tracker_node', 't', array('target' => 'slave'))->extend('PagerDefault');
+    $query = db_select('alttracker_node', 't', array('target' => 'slave'))->extend('PagerDefault');
   }
 
   // This array acts as a placeholder for the data selected later
@@ -109,13 +109,13 @@ function tracker_page($account = NULL, $set_title = FALSE) {
     }
   }
 
-  $page['tracker'] = array(
+  $page['alttracker'] = array(
     '#rows' => $rows,
     '#header' => array(t('Type'), t('Title'), t('Author'), t('Replies'), t('Last updated')),
     '#theme' => 'table',
     '#empty' => t('No content available.'),
     '#attached' => array(
-      'css' => array(drupal_get_path('module', 'tracker') . '/tracker.css' => array()),
+      'css' => array(drupal_get_path('module', 'alttracker') . '/tracker.css' => array()),
     ),
   );
   $page['pager'] = array(
