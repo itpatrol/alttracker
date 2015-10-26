@@ -117,7 +117,12 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
       'css' => array(drupal_get_path('module', 'alttracker') . '/tracker.css' => array()),
     ),
   );
-  $page['pager'] = array(
+  $page['first-pager'] = array(
+    '#theme' => 'altpager',
+    '#weight' => -10,
+  );
+
+  $page['last-pager'] = array(
     '#theme' => 'altpager',
     '#weight' => 10,
   );
