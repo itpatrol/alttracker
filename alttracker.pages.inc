@@ -108,6 +108,11 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
     }
   }
 
+  $page['first-pager'] = array(
+    '#theme' => 'altpager',
+    '#weight' => -10,
+  );
+
   $page['alttracker'] = array(
     '#rows' => $rows,
     '#header' => array(t('Type'), t('Title'), t('Author'), t('Replies'), t('Last updated')),
@@ -116,10 +121,7 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
     '#attached' => array(
       'css' => array(drupal_get_path('module', 'alttracker') . '/tracker.css' => array()),
     ),
-  );
-  $page['first-pager'] = array(
-    '#theme' => 'altpager',
-    '#weight' => -10,
+    '#weight' => 0,
   );
 
   $page['last-pager'] = array(
