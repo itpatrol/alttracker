@@ -30,7 +30,7 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
 
   // This array acts as a placeholder for the data selected later
   // while keeping the correct order.
-  $nodes = $query
+  $nids = $query
     ->addTag('node_access')
     ->fields('t', array('nid', 'changed'))
     ->condition('t.published', 1)
@@ -38,7 +38,10 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
     ->execute()
     ->fetchAllAssoc('nid');
 
-  $rows = array();
+    $nodes = node_load_multiple($nids);
+    $page = node_view_multiple($nodes);
+    
+/*  $rows = array();
   if (!empty($nodes)) {
     // Now, get the data and put into the placeholder array.
     $result = db_query('SELECT n.nid, n.title, n.type, n.changed, n.uid, u.name, l.comment_count FROM {node} n INNER JOIN {node_comment_statistics} l ON n.nid = l.nid INNER JOIN {users} u ON n.uid = u.uid WHERE n.nid IN (:nids)', array(':nids' => array_keys($nodes)), array('target' => 'slave'));
@@ -71,12 +74,12 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
       $rows[] = $row;
     }
   }
-
+*/
   $page['first-pager'] = array(
     '#theme' => 'altpager',
     '#weight' => -10,
   );
-
+/*
   $page['alttracker'] = array(
     '#rows' => $rows,
     '#header' => array(t('Type'), t('Title'), t('Author'), t('Replies'), t('Last updated')),
@@ -87,7 +90,7 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
     ),
     '#weight' => 0,
   );
-
+*/
   $page['last-pager'] = array(
     '#theme' => 'altpager',
     '#weight' => 10,
