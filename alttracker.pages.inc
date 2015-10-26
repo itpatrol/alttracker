@@ -118,7 +118,7 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
     ),
   );
   $page['pager'] = array(
-    '#theme' => 'pager',
+    '#theme' => 'altpager',
     '#weight' => 10,
   );
   $page['#sorted'] = TRUE;
