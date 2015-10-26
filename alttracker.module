@@ -35,7 +35,7 @@ function alttracker_menu() {
     'page callback' => 'alttracker_page',
     'access arguments' => array('access content'),
     'weight' => 1,
-    'file' => 'tracker.pages.inc',
+    'file' => 'alttracker.pages.inc',
   );
   $items['alttracker/all'] = array(
     'title' => 'All recent content',
@@ -48,7 +48,7 @@ function alttracker_menu() {
     'access arguments' => array(1),
     'page arguments' => array(1),
     'type' => MENU_LOCAL_TASK,
-    'file' => 'tracker.pages.inc',
+    'file' => 'alttracker.pages.inc',
   );
 
   $items['user/%user/alttracker'] = array(
@@ -58,7 +58,7 @@ function alttracker_menu() {
     'access callback' => '_alttracker_user_access',
     'access arguments' => array(1),
     'type' => MENU_LOCAL_TASK,
-    'file' => 'tracker.pages.inc',
+    'file' => 'alttracker.pages.inc',
   );
   $items['user/%user/alttracker/content'] = array(
     'title' => 'Track content',
