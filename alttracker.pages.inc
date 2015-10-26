@@ -14,7 +14,7 @@
  */
 function alttracker_page($account = NULL, $set_title = FALSE) {
   if ($account) {
-    $query = db_select('alttracker_user', 't')->extend('PagerDefault');
+    $query = db_select('alttracker_user', 't')->extend('AltPager');
     $query->condition('t.uid', $account->uid);
 
     if ($set_title) {
@@ -25,7 +25,7 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
     }
   }
   else {
-    $query = db_select('alttracker_node', 't', array('target' => 'slave'))->extend('PagerDefault');
+    $query = db_select('alttracker_node', 't', array('target' => 'slave'))->extend('AltPager');
   }
 
   // This array acts as a placeholder for the data selected later
