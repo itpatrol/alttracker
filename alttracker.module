@@ -8,7 +8,7 @@
 /**
  * Implements hook_help().
  */
-function tracker_help($path, $arg) {
+function alttracker_help($path, $arg) {
   switch ($path) {
     case 'admin/help#tracker':
       $output = '<h3>' . t('About') . '</h3>';
@@ -29,38 +29,38 @@ function tracker_help($path, $arg) {
 /**
  * Implements hook_menu().
  */
-function tracker_menu() {
-  $items['tracker'] = array(
+function alttracker_menu() {
+  $items['alttracker'] = array(
     'title' => 'Recent content',
-    'page callback' => 'tracker_page',
+    'page callback' => 'alttracker_page',
     'access arguments' => array('access content'),
     'weight' => 1,
     'file' => 'tracker.pages.inc',
   );
-  $items['tracker/all'] = array(
+  $items['alttracker/all'] = array(
     'title' => 'All recent content',
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
-  $items['tracker/%user_uid_optional'] = array(
+  $items['alttracker/%user_uid_optional'] = array(
     'title' => 'My recent content',
-    'page callback' => 'tracker_page',
-    'access callback' => '_tracker_myrecent_access',
+    'page callback' => 'alttracker_page',
+    'access callback' => '_alttracker_myrecent_access',
     'access arguments' => array(1),
     'page arguments' => array(1),
     'type' => MENU_LOCAL_TASK,
     'file' => 'tracker.pages.inc',
   );
 
-  $items['user/%user/track'] = array(
+  $items['user/%user/alttracker'] = array(
     'title' => 'Track',
-    'page callback' => 'tracker_page',
+    'page callback' => 'alttracker_page',
     'page arguments' => array(1, TRUE),
-    'access callback' => '_tracker_user_access',
+    'access callback' => '_alttracker_user_access',
     'access arguments' => array(1),
     'type' => MENU_LOCAL_TASK,
     'file' => 'tracker.pages.inc',
   );
-  $items['user/%user/track/content'] = array(
+  $items['user/%user/alttracker/content'] = array(
     'title' => 'Track content',
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
@@ -72,13 +72,13 @@ function tracker_menu() {
  * Implements hook_cron().
  *
  * Updates tracking information for any items still to be tracked. The variable
- * 'tracker_index_nid' is set to ((the last node ID that was indexed) - 1) and
+ * 'alttracker_index_nid' is set to ((the last node ID that was indexed) - 1) and
  * used to select the nodes to be processed. If there are no remaining nodes to
- * process, 'tracker_index_nid' will be 0.
+ * process, 'alttracker_index_nid' will be 0.
  */
-function tracker_cron() {
-  $max_nid = variable_get('tracker_index_nid', 0);
-  $batch_size = variable_get('tracker_batch_size', 1000);
+function alttracker_cron() {
+  $max_nid = variable_get('alttracker_index_nid', 0);
+  $batch_size = variable_get('alttracker_batch_size', 1000);
   if ($max_nid > 0) {
     $last_nid = FALSE;
     $result = db_query_range('SELECT nid, uid, status FROM {node} WHERE nid <= :max_nid ORDER BY nid DESC', 0, $batch_size, array(':max_nid' => $max_nid), array('target' => 'slave'));
@@ -87,18 +87,18 @@ function tracker_cron() {
 
     foreach ($result as $row) {
       // Calculate the changed timestamp for this node.
-      $changed = _tracker_calculate_changed($row->nid);
+      $changed = _alttracker_calculate_changed($row->nid);
 
       // Remove existing data for this node.
-      db_delete('tracker_node')
+      db_delete('alttracker_node')
         ->condition('nid', $row->nid)
         ->execute();
-      db_delete('tracker_user')
+      db_delete('alttracker_user')
         ->condition('nid', $row->nid)
         ->execute();
 
       // Insert the node-level data.
-      db_insert('tracker_node')
+      db_insert('alttracker_node')
         ->fields(array(
           'nid' => $row->nid,
           'published' => $row->status,
@@ -107,7 +107,7 @@ function tracker_cron() {
         ->execute();
 
       // Insert the user-level data for the node's author.
-      db_insert('tracker_user')
+      db_insert('alttracker_user')
         ->fields(array(
           'nid' => $row->nid,
           'published' => $row->status,
@@ -129,7 +129,7 @@ function tracker_cron() {
 
       // Insert the user-level data for the commenters (except if a commenter
       // is the node's author).
-      db_insert('tracker_user')
+      db_insert('alttracker_user')
         ->from($query)
         ->execute();
 
@@ -141,13 +141,13 @@ function tracker_cron() {
 
     if ($last_nid !== FALSE) {
       // Prepare a starting point for the next run.
-      variable_set('tracker_index_nid', $last_nid - 1);
+      variable_set('alttracker_index_nid', $last_nid - 1);
 
       watchdog('tracker', 'Indexed %count content items for tracking.', array('%count' => $count));
     }
     else {
       // If all nodes have been indexed, set to zero to skip future cron runs.
-      variable_set('tracker_index_nid', 0);
+      variable_set('alttracker_index_nid', 0);
     }
   }
 }
@@ -155,7 +155,7 @@ function tracker_cron() {
 /**
  * Access callback for tracker/%user_uid_optional.
  */
-function _tracker_myrecent_access($account) {
+function _alttracker_myrecent_access($account) {
   // This path is only allowed for authenticated users looking at their own content.
   return $account->uid && ($GLOBALS['user']->uid == $account->uid) && user_access('access content');
 }
@@ -163,7 +163,7 @@ function _tracker_myrecent_access($account) {
 /**
  * Access callback for user/%user/track.
  */
-function _tracker_user_access($account) {
+function _alttracker_user_access($account) {
   return user_view_access($account) && user_access('access content');
 }
 
@@ -172,8 +172,8 @@ function _tracker_user_access($account) {
  *
  * Adds new tracking information for this node since it's new.
  */
-function tracker_node_insert($node, $arg = 0) {
-  _tracker_add($node->nid, $node->uid, $node->changed);
+function alttracker_node_insert($node, $arg = 0) {
+  _alttracker_add($node->nid, $node->uid, $node->changed);
 }
 
 /**
@@ -181,8 +181,8 @@ function tracker_node_insert($node, $arg = 0) {
  *
  * Adds tracking information for this node since it's been updated.
  */
-function tracker_node_update($node, $arg = 0) {
-  _tracker_add($node->nid, $node->uid, $node->changed);
+function alttracker_node_update($node, $arg = 0) {
+  _alttracker_add($node->nid, $node->uid, $node->changed);
 }
 
 /**
@@ -190,11 +190,11 @@ function tracker_node_update($node, $arg = 0) {
  *
  * Deletes tracking information for a node.
  */
-function tracker_node_delete($node, $arg = 0) {
-  db_delete('tracker_node')
+function alttracker_node_delete($node, $arg = 0) {
+  db_delete('alttracker_node')
     ->condition('nid', $node->nid)
     ->execute();
-  db_delete('tracker_user')
+  db_delete('alttracker_user')
     ->condition('nid', $node->nid)
     ->execute();
 }
@@ -205,11 +205,11 @@ function tracker_node_delete($node, $arg = 0) {
  * Comment module doesn't call hook_comment_unpublish() when saving individual
  * comments so we need to check for those here.
  */
-function tracker_comment_update($comment) {
+function alttracker_comment_update($comment) {
   // comment_save() calls hook_comment_publish() for all published comments
   // so we need to handle all other values here.
   if ($comment->status != COMMENT_PUBLISHED) {
-    _tracker_remove($comment->nid, $comment->uid, $comment->changed);
+    _alttracker_remove($comment->nid, $comment->uid, $comment->changed);
   }
 }
 
@@ -219,22 +219,22 @@ function tracker_comment_update($comment) {
  * This actually handles the insert and update of published nodes since
  * comment_save() calls hook_comment_publish() for all published comments.
  */
-function tracker_comment_publish($comment) {
-  _tracker_add($comment->nid, $comment->uid, $comment->changed);
+function alttracker_comment_publish($comment) {
+  _alttracker_add($comment->nid, $comment->uid, $comment->changed);
 }
 
 /**
  * Implements hook_comment_unpublish().
  */
-function tracker_comment_unpublish($comment) {
-  _tracker_remove($comment->nid, $comment->uid, $comment->changed);
+function alttracker_comment_unpublish($comment) {
+  _alttracker_remove($comment->nid, $comment->uid, $comment->changed);
 }
 
 /**
  * Implements hook_comment_delete().
  */
-function tracker_comment_delete($comment) {
-  _tracker_remove($comment->nid, $comment->uid, $comment->changed);
+function alttracker_comment_delete($comment) {
+  _alttracker_remove($comment->nid, $comment->uid, $comment->changed);
 }
 
 /**
@@ -247,7 +247,7 @@ function tracker_comment_delete($comment) {
  * @param $changed
  *   The node updated timestamp or comment timestamp.
  */
-function _tracker_add($nid, $uid, $changed) {
+function _alttracker_add($nid, $uid, $changed) {
   $node = db_query('SELECT nid, status, uid, changed FROM {node} WHERE nid = :nid', array(':nid' => $nid))->fetchObject();
 
   // Adding a comment can only increase the changed timestamp, so our
@@ -255,7 +255,7 @@ function _tracker_add($nid, $uid, $changed) {
   $changed = max($node->changed, $changed);
 
   // Update the node-level data.
-  db_merge('tracker_node')
+  db_merge('alttracker_node')
     ->key(array('nid' => $nid))
     ->fields(array(
       'changed' => $changed,
@@ -264,7 +264,7 @@ function _tracker_add($nid, $uid, $changed) {
     ->execute();
 
   // Create or update the user-level data, first for the user posting.
-  db_merge('tracker_user')
+  db_merge('alttracker_user')
     ->key(array(
       'nid' => $nid,
       'uid' => $uid,
@@ -275,7 +275,7 @@ function _tracker_add($nid, $uid, $changed) {
     ))
     ->execute();
   // Update the times for all the other users tracking the post.
-  db_update('tracker_user')
+  db_update('alttracker_user')
     ->condition('nid', $nid)
     ->fields(array(
       'changed' => $changed,
@@ -294,7 +294,7 @@ function _tracker_add($nid, $uid, $changed) {
  *  The $node->changed timestamp, or most recent comment timestamp, whichever
  *  is the greatest.
  */
-function _tracker_calculate_changed($nid) {
+function _alttracker_calculate_changed($nid) {
   $changed = db_query('SELECT changed FROM {node} WHERE nid = :nid', array(':nid' => $nid), array('target' => 'slave'))->fetchField();
   $latest_comment = db_query_range('SELECT cid, changed FROM {comment} WHERE nid = :nid AND status = :status ORDER BY changed DESC', 0, 1, array(
     ':nid' => $nid,
@@ -316,7 +316,7 @@ function _tracker_calculate_changed($nid) {
  * @param $changed
  *   The last changed timestamp of the node.
  */
-function _tracker_remove($nid, $uid = NULL, $changed = NULL) {
+function _alttracker_remove($nid, $uid = NULL, $changed = NULL) {
   $node = db_query('SELECT nid, status, uid, changed FROM {node} WHERE nid = :nid', array(':nid' => $nid))->fetchObject();
 
   // The user only keeps his or her subscription if both of the following are true:
@@ -340,7 +340,7 @@ function _tracker_remove($nid, $uid = NULL, $changed = NULL) {
 
     // If we haven't found a reason to keep the user's subscription, delete it.
     if (!$keep_subscription) {
-      db_delete('tracker_user')
+      db_delete('alttracker_user')
         ->condition('nid', $nid)
         ->condition('uid', $uid)
         ->execute();
@@ -350,24 +350,24 @@ function _tracker_remove($nid, $uid = NULL, $changed = NULL) {
     // and the node itself.
     // We only need to do this if the removed item has a timestamp that equals
     // or exceeds the listed changed timestamp for the node.
-    $tracker_node = db_query('SELECT nid, changed FROM {tracker_node} WHERE nid = :nid', array(':nid' => $nid))->fetchObject();
-    if ($tracker_node && $changed >= $tracker_node->changed) {
+    $alttracker_node = db_query('SELECT nid, changed FROM {alttracker_node} WHERE nid = :nid', array(':nid' => $nid))->fetchObject();
+    if ($alttracker_node && $changed >= $alttracker_node->changed) {
       // If we're here, the item being removed is *possibly* the item that
       // established the node's changed timestamp.
 
       // We just have to recalculate things from scratch.
-      $changed = _tracker_calculate_changed($nid);
+      $changed = _alttracker_calculate_changed($nid);
 
       // And then we push the out the new changed timestamp to our denormalized
       // tables.
-      db_update('tracker_node')
+      db_update('alttracker_node')
         ->fields(array(
           'changed' => $changed,
           'published' => $node->status,
         ))
         ->condition('nid', $nid)
         ->execute();
-      db_update('tracker_node')
+      db_update('alttracker_node')
         ->fields(array(
           'changed' => $changed,
           'published' => $node->status,
@@ -378,10 +378,10 @@ function _tracker_remove($nid, $uid = NULL, $changed = NULL) {
   }
   else {
     // If the node doesn't exist, remove everything.
-    db_delete('tracker_node')
+    db_delete('alttracker_node')
       ->condition('nid', $nid)
       ->execute();
-    db_delete('tracker_user')
+    db_delete('alttracker_user')
       ->condition('nid', $nid)
       ->execute();
   }
