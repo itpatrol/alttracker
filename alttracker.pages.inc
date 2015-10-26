@@ -37,6 +37,8 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
     ->orderBy('t.changed', 'DESC')
     ->execute()
     ->fetchAllAssoc('nid');
+    
+    print_r($nids);
 
     $nodes = node_load_multiple($nids);
     $page = node_view_multiple($nodes);
