@@ -43,8 +43,8 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
     '#weight' => -10,
   );
     
-    $nodes = node_load_multiple($nids);
-    $page[] = node_view_multiple($nodes);
+  $nodes = node_load_multiple($nids);
+  $page[] = node_view_multiple($nodes, 'alttracker');
 
   $page['last-pager'] = array(
     '#theme' => 'altpager',
