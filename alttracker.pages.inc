@@ -36,7 +36,7 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
     ->condition('t.published', 1)
     ->orderBy('t.changed', 'DESC')
     ->execute()
-    ->fetchAllAssoc('nid');
+    ->fetchCol();
     
     print_r($nids);
 
