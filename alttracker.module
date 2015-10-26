@@ -153,6 +153,16 @@ function alttracker_cron() {
 }
 
 /**
+* Implements hook_entity_info_alter().
+*/
+function altpager_entity_info_alter(&$entity_info) {
+  $entity_info['node']['view modes']['alttracker'] = array(
+    'label' => t('Alternative tracker'),
+    'custom settings' => TRUE,
+  );
+}
+
+/**
  * Access callback for tracker/%user_uid_optional.
  */
 function _alttracker_myrecent_access($account) {
