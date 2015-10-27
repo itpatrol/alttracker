@@ -111,17 +111,9 @@ function alttracker_nodes_load($nids){
   $query->condition('n.nid', $nids, 'IN')
    ->fields('n', array('title', 'type', 'uid', 'changed'))
    ->fields('l', array('comment_count'))
-   ->fields('u', array('name'));
+   ->fields('u', array('name'))
+   ->orderBy('n.changed', 'DESC');
 
-  /*
-  $query->join('node_comment_statistics', 'l', 'l.nid = t.nid');
-  $query->join('users', 'u', 'n.uid = u.uid');
-  
-    
-  $query->fields('l', array('comment_count'));
-  $query->fields('u', array('name'));
-*/
-  
   $result = $query->execute();
   return $result->fetchAll();
 }
