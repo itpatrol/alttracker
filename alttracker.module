@@ -424,10 +424,18 @@ function theme_alttracker($variables){
 //  print_r($data);
   $rows = array();
   foreach($variables['nodes'] as $node){
-    
+    $comments = 0;
+    if ($node->comment_count) {
+      $comments = $node->comment_count;
+
+      if ($node->new) {
+        $comments .= '<br />';
+        $comments .= l(format_plural($node->new, '1 new', '@count new'), 'node/' . $node->nid, array('query' => comment_new_page_count($node->comment_count, $node->new_replies, $node), 'fragment' => 'new'));
+      }
+    }
     $rows[] = array(
         'fa-icon' => theme('alttracker_icon', array('node' => $node)),
-        'title' => array('data' => l($node->title, 'node/' . $node->nid)),
+        'title' => array('data' => $node->url),
         'author' => array('data' => theme('username', array('account' => $node))),
         'replies' => array('class' => array('replies'), 'data' => $comments),
         'last updated' => array('data' => t('!time ago', array('!time' => format_interval(REQUEST_TIME - $node->changed)))),
