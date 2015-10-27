@@ -439,6 +439,18 @@ function theme_alttracker($variables){
     }
     
     $title = l($node->title, 'node/' . $node->nid, array('query' => comment_new_page_count($node->comment_count, $node->new_replies, $node), 'fragment' => 'new'));
+    
+    
+    if(!empty($node->terms)){
+      $terms_links = array();
+      foreach($node->terms as $term){
+        $terms_links[] = array(
+          'title' => $term->name,
+          'href' => url("taxonomy/term/" . $term->tid),
+        );
+      }
+      $title .= '<div class="terms"> ' . theme('links', array('links' => $terms_links)) . '</div>';
+    }
 
     $rows[] = array(
       'fa-icon' => array('class' => array('icon'), 'data' => theme('alttracker_icon', array('node' => $node))),
