@@ -421,6 +421,7 @@ function template_preprocess_alttracker(&$variables) {
     );
   }
   $variables['content'] = $render;
+  print_r($variables);
 }
 
 /**
