@@ -3,3 +3,10 @@ table.altpager .replies .fa,
 table.altpager .last-reply .fa {
   color: #ddd;
 }
+
+.terms ul {
+  list-style: none;
+}
+.terms ul li {
+  display: inline-block;
+}

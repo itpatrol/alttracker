@@ -449,7 +449,7 @@ function theme_alttracker($variables){
           'href' => url("taxonomy/term/" . $term->tid),
         );
       }
-      $title .= '<div class="terms"> ' . theme('links', array('links' => $terms_links)) . '</div>';
+      $title .= '<div class="terms"> <i class="fa fa-tags"></i> ' . theme('links', array('links' => $terms_links)) . '</div>';
     }
 
     $rows[] = array(
