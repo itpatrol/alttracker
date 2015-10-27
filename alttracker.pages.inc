@@ -24,8 +24,6 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
     800 => 800,
     1000 => 1000,
   ));
-  altpager_count_all_items(1000);
-  
   
   if ($account) {
     $query = db_select('alttracker_user', 't')->extend('AltPager');
@@ -41,7 +39,7 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
   else {
     $query = db_select('alttracker_node', 't', array('target' => 'slave'))->extend('AltPager');
   }
-  
+ 
   if($types = variable_get('alttracker_node_type')){
     $in_types = array();
 
@@ -51,7 +49,7 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
       }
     }
     if(!empty($in_types)){
-      $query->join('node', 'n', 'n.nid = t.nid');
+      $query->leftJoin('node', 'n', 'n.nid = t.nid');
       $query->condition('n.type', $in_types, 'IN');
     }
   }
@@ -82,6 +80,10 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
       $node->url = url("node/$node->nid", array('query' => comment_new_page_count($node->comment_count, $node->new_replies, $node), 'fragment' => 'new'));
     }else{
       $node->url = url("node/$node->nid");
+    }
+    
+    if(variable_get('alttracker_taxonomy')){
+      
     }
     $nodes[$nid] = $node;
   }
