@@ -1,3 +1,6 @@
-.odd {
+.alttracker-node {
+  padding: 5px;
+}
+.alttracker-node.odd {
   background-color: #ddd;
 }
