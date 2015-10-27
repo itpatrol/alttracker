@@ -40,6 +40,22 @@ function alttracker_theme() {
   );
 }
 
+
+/**
+ * Implements hook_permission().
+ */
+function alttracker_permission() {
+  return array(
+    'administer alttracker' => array(
+      'title' => t('Configure Alttracker'),
+      'description' => t('Configure alternative tracker.'),
+      'restrict access' => TRUE,
+      'warning' => t('This permission allow user to change alternative tracker behaviour.')
+    ),
+  );
+}
+
+
 /**
  * Implements hook_menu().
  */
@@ -78,6 +94,18 @@ function alttracker_menu() {
     'title' => 'Track content',
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
+
+  // Administer menu.
+  $items['admin/config/alttracker'] = array(
+    'title' => 'Alternative tracker Settings',
+    'description' => 'Configure alternative tracker behaviour.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('alttracker_admin_settings'),
+    'access arguments' => array('administer alttracker'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'alttracker.admin.inc',
+  );
+  
 
   return $items;
 }
