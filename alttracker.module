@@ -418,7 +418,7 @@ function template_preprocess_alttracker(&$variables) {
     $content .= theme('alttracker_node', $node);
   }
   print_r($content);
-  $variables['content'] = $content;
+//  $variables['content'] = $content;
 }
 
 /**
