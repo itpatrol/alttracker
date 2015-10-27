@@ -54,10 +54,6 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
     }
   }
   
-  
-
-  // This array acts as a placeholder for the data selected later
-  // while keeping the correct order.
   $nids = $query
     ->addTag('node_access')
     ->fields('t', array('nid', 'changed'))
@@ -72,8 +68,6 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
   );
     
   $nodes = alttracker_nodes_load($nids);
-//  print_r($nodes);
-//  $nodes = node_load_multiple($nids);
   foreach($nodes as $nid => $node){
     $history = _forum_user_last_visit($node->nid); 
     $node->new_replies = comment_num_new($node->nid, $history);
