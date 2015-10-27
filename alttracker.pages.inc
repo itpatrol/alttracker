@@ -71,7 +71,8 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
     '#weight' => -10,
   );
     
-  $nodes = node_load_multiple($nids);
+  $nodes = alttracker_nodes_load($nids);
+  print_r($nodes);
   foreach($nodes as $nid => $node){
     $history = _forum_user_last_visit($node->nid); 
     $node->new_replies = comment_num_new($node->nid, $history);
@@ -100,4 +101,15 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
   $page['#sorted'] = TRUE;
 
   return $page;
+}
+
+function alttracker_nodes_load($nids){
+  $query = db_select('node', 'n');
+  $query->fields('n', array('title', 'type', 'uid'));
+  $query->join('node_comment_statistics', 'l', 'l.nid = t.nid');
+  $query->fields('l', array('comment_count'));
+  $query->join('users', 'u', 'n.uid = u.uid');
+  $query->fields('u', array('name'));
+  $query->condition('n.nid', $nids, 'IN');
+  return $query->execute()->fetchAll();
 }
