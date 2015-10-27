@@ -96,7 +96,7 @@ function alttracker_menu() {
   );
 
   // Administer menu.
-  $items['admin/config/alttracker'] = array(
+  $items['admin/config/content/alttracker'] = array(
     'title' => 'Alternative tracker Settings',
     'description' => 'Configure alternative tracker behaviour.',
     'page callback' => 'drupal_get_form',
