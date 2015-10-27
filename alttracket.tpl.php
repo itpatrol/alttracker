@@ -1,5 +1,5 @@
 <div id="alttracker">
 <?php
-  print render($content); 
+  print $content; 
 ?>
 </div>

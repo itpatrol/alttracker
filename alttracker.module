@@ -413,15 +413,9 @@ function _alttracker_remove($nid, $uid = NULL, $changed = NULL) {
  */
 function template_preprocess_alttracker(&$variables) {
   $nodes = $variables['nodes'];
-  $render = '';
   foreach($nodes as $node){
-    $render[] = array(
-      '#theme' => 'alttracker_node',
-      '#node' => $node,
-    );
+    $variables['content'] .= theme('alttracker_node', array('node' => $node));
   }
-  $variables['content'] = $render;
-  print_r($variables);
 }
 
 /**
