@@ -18,7 +18,7 @@
       ?>
     </div>
     <div class="col-xs-10 title">
-      <a href="<?php print $node_url; ?>"><?php print $node->title; ?></a>
+      <a href="<?php print $node_url; ?>"><?php print $title; ?></a>
     </div>
   </div>
   <div class="author col-xs-4 col-sm-2 col-md-2 col-xs-offset-1 col-sm-offset-0">
