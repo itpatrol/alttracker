@@ -27,6 +27,20 @@ function alttracker_help($path, $arg) {
 }
 
 /**
+ * Implements hook_theme().
+ */
+function alttracker_theme() {
+  return array(
+    'alttracker_node' => array(
+      'variables' => array(
+        'node' => array(),
+      ),
+      'template' => 'alttracker_node',
+    ),
+  );
+}
+
+/**
  * Implements hook_menu().
  */
 function alttracker_menu() {

@@ -44,8 +44,12 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
   );
     
   $nodes = node_load_multiple($nids);
-  print_r($nodes);
-//  $page[] = node_view_multiple($nodes, 'alttracker');
+  foreach($nodes as $node){
+    $page['nodes'][] = array(
+      '#theme' => 'alttracker_node',
+      'node' => $node,
+    );
+  }
 
   $page['last-pager'] = array(
     '#theme' => 'altpager',
