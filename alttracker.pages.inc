@@ -27,6 +27,8 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
   else {
     $query = db_select('alttracker_node', 't', array('target' => 'slave'))->extend('AltPager');
   }
+  
+  print_r(variable_get('alttracker_node_type'));
 
   // This array acts as a placeholder for the data selected later
   // while keeping the correct order.
