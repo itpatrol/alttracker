@@ -79,7 +79,12 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
     }
     
     if(variable_get('alttracker_taxonomy')){
-      
+      $tids = db_select('taxonomy_index', 't', array('target' => 'slave'))
+        ->fields('t', array('tid'))
+        ->condition('t.nid', $node->nid)
+        ->execute()
+        ->fetchCol();
+      print_r($tids);
     }
     $nodes[$nid] = $node;
   }
