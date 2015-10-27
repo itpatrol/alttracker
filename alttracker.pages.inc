@@ -13,6 +13,19 @@
  * the render array that will be used to render the page.
  */
 function alttracker_page($account = NULL, $set_title = FALSE) {
+  
+  altpager_items_elements(array(
+    20 => 20,
+    50 => 50,
+    100 => 100,
+    200 => 200,
+    400 => 400,
+    600 => 600,
+    800 => 800,
+    1000 => 1000,
+  ));
+  
+  
   if ($account) {
     $query = db_select('alttracker_user', 't')->extend('AltPager');
     $query->condition('t.uid', $account->uid);
