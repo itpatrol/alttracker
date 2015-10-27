@@ -441,7 +441,7 @@ function theme_alttracker($variables){
     $title = l($node->title, 'node/' . $node->nid, array('query' => comment_new_page_count($node->comment_count, $node->new_replies, $node), 'fragment' => 'new'));
 
     if(variable_get('alttracker_taxonomy', 0)){
-      $result = field_view_field('node', $node, 'field_taxonomy_forums', array('default'));
+      $result = field_view_value('node', $node, 'field_taxonomy_forums', array('default'));
       print_r($result);
       
       $title .= '<div class="tags">tags!</div>';
