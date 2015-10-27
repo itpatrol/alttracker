@@ -410,5 +410,8 @@ function _alttracker_remove($nid, $uid = NULL, $changed = NULL) {
  */
 function template_preprocess_alttracker_node(&$variables) {
 //  print_r($variables);
+  $node = $variables['#node'];
+  $variables['timeago'] = t('@time ago', array('@time' => format_interval(time() - $node->changed)));
+  $variables['author'] = theme('username', array('account' => user_load($node->uid)));
 }
 
