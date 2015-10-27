@@ -6,7 +6,10 @@ table.altpager .last-reply .fa {
 
 .terms ul {
   list-style: none;
+  margin: 0px;
+  padding: 0px;
 }
 .terms ul li {
   display: inline-block;
+  padding-left: 2px;
 }
