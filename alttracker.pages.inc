@@ -84,7 +84,8 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
         ->condition('t.nid', $node->nid)
         ->execute()
         ->fetchCol();
-      print_r($tids);
+      $term = taxonomy_term_load_multiple($tids, array());
+      print_r($term);
     }
     $nodes[$nid] = $node;
   }
