@@ -28,7 +28,20 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
     $query = db_select('alttracker_node', 't', array('target' => 'slave'))->extend('AltPager');
   }
   
-  print_r(variable_get('alttracker_node_type'));
+  if($types = variable_get('alttracker_node_type')){
+    $in_types = array();
+    foreach($types as $type => $val){
+      if(0 != $val){
+        $in_types[] = $type;
+      }
+    }
+    if(!empty($in_types)){
+      $query->join('node', 'n', 'n.nid = t.nid');
+      $query->condition('n.type', $in_types, 'IN');
+    }
+  }
+  
+  
 
   // This array acts as a placeholder for the data selected later
   // while keeping the correct order.
