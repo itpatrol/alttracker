@@ -54,7 +54,7 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
       '#node' => $node,
     );
   }
-  drupal_add_css(drupal_get_path('module', 'alttracker') . '/alttracker.css')
+  drupal_add_css(drupal_get_path('module', 'alttracker') . '/alttracker.css');
   $page['last-pager'] = array(
     '#theme' => 'altpager',
     '#weight' => 10,
