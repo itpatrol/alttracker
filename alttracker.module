@@ -410,12 +410,16 @@ function _alttracker_remove($nid, $uid = NULL, $changed = NULL) {
  * - $nodes: Nodes array data.
  *
  * @see alttracker.tpl.php
- */
+
 function template_preprocess_alttracker(&$variables) {
   $nodes = $variables['nodes'];
   foreach($nodes as $node){
     $variables['content'] .= theme('alttracker_node', array('node' => $node));
   }
+}
+ */
+function theme_alttracker($data){
+  print_r($data);
 }
 
 /**
