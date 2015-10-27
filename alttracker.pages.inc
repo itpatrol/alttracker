@@ -45,6 +45,7 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
     
   $nodes = node_load_multiple($nids);
   foreach($nodes as $nid => $node){
+    print_r($node);
     $history = _forum_user_last_visit($node->nid); 
     $node->new_replies = comment_num_new($node->nid, $history);
     $node->new = $node->new_replies || ($node->last_comment_timestamp > $history);
