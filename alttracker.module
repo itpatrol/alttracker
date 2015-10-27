@@ -405,23 +405,7 @@ function _alttracker_remove($nid, $uid = NULL, $changed = NULL) {
   }
 }
 
-/**
- * Process variables for alttracker.tpl.php.
- *
- * The $variables array contains the following arguments:
- * - $nodes: Nodes array data.
- *
- * @see alttracker.tpl.php
-
-function template_preprocess_alttracker(&$variables) {
-  $nodes = $variables['nodes'];
-  foreach($nodes as $node){
-    $variables['content'] .= theme('alttracker_node', array('node' => $node));
-  }
-}
- */
 function theme_alttracker($variables){
-//  print_r($data);
   $rows = array();
   foreach($variables['nodes'] as $node){
     $comments = '<i class="fa fa-comment-o"></i>' . ' ' . $node->comment_count;
