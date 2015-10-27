@@ -30,6 +30,7 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
   
   if($types = variable_get('alttracker_node_type')){
     $in_types = array();
+    print_r($types);
     foreach($types as $type => $val){
       if(0 != $val){
         $in_types[] = $type;
