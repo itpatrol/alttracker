@@ -71,8 +71,9 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
     '#weight' => -10,
   );
     
-  $nodes = alttracker_nodes_load($nids);
-  print_r($nodes);
+//  $nodes = alttracker_nodes_load($nids);
+//  print_r($nodes);
+  $nodes = node_load_multiple($nids);
   foreach($nodes as $nid => $node){
     $history = _forum_user_last_visit($node->nid); 
     $node->new_replies = comment_num_new($node->nid, $history);
