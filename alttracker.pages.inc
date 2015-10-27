@@ -64,9 +64,7 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
     ->condition('t.published', 1)
     ->orderBy('t.changed', 'DESC')
     ->execute()
-    ->fetchAll();
-  
-  print_r($nids);
+    ->fetchCol();
 
   $page['first-pager'] = array(
     '#theme' => 'altpager',
@@ -108,11 +106,12 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
 
 function alttracker_nodes_load($nids){
   $query = db_select('node', 'n', array('target' => 'slave'));
-  $query->join('node_comment_statistics', 'l', 'l.nid = n.nid');
+  $query->join('alttracker_node', 't', 't.nid = n.nid');
   $query->join('node_comment_statistics', 'l', 'l.nid = n.nid');
   $query->join('users', 'u', 'n.uid = u.uid');
   $query->condition('n.nid', $nids, 'IN')
-   ->fields('n', array('title', 'type', 'uid', 'changed', 'nid'))
+   ->fields('n', array('title', 'type', 'uid',  'nid', 'sticky', 'promote'))
+   ->fields('t', array('changed'))
    ->fields('l', array('comment_count'))
    ->fields('u', array('name'))
    ->orderBy('n.changed', 'DESC');
