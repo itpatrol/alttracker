@@ -430,11 +430,11 @@ function theme_alttracker($variables){
       $comments .= ' ' . '<i class="fa fa-comment"></i>' . ' ' . l(format_plural($node->new, '1 new', '@count new'), 'node/' . $node->nid, array('query' => comment_new_page_count($node->comment_count, $node->new_replies, $node), 'fragment' => 'new'));
     }
     $rows[] = array(
-      'fa-icon' => theme('alttracker_icon', array('node' => $node)),
-      'title' => array('data' => l($node->title, 'node/' . $node->nid, array('query' => comment_new_page_count($node->comment_count, $node->new_replies, $node), 'fragment' => 'new'))),
-      'author' => array('data' => '<i class="fa fa-user"></i>' . ' ' . theme('username', array('account' => $node))),
+      'fa-icon' => array('class' => array('icon'), 'data' => theme('alttracker_icon', array('node' => $node))),
+      'title' => array('class' => array('title'), 'data' => l($node->title, 'node/' . $node->nid, array('query' => comment_new_page_count($node->comment_count, $node->new_replies, $node), 'fragment' => 'new'))),
+      'author' => array('class' => array('author'), 'data' => '<i class="fa fa-user"></i>' . ' ' . theme('username', array('account' => $node))),
       'replies' => array('class' => array('replies'), 'data' => $comments),
-      'last updated' => array('data' => '<i class="fa fa-history"></i>' . ' ' . t('!time ago', array('!time' => format_interval(REQUEST_TIME - $node->changed)))),
+      'last updated' => array('class' => array('last-reply'), 'data' => '<i class="fa fa-history"></i>' . ' ' . t('!time ago', array('!time' => format_interval(REQUEST_TIME - $node->changed)))),
     );
   }
   
