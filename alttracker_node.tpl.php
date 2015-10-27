@@ -23,7 +23,7 @@
   </div>
   <div class="author col-xs-4 col-sm-2 col-md-2 col-xs-offset-1 col-sm-offset-0">
     <i class="fa fa-user"></i>
-    <?php print $author; ?>
+    <?php print $name; ?>
   </div>
   <div class="replies col-xs-3 col-sm-2 col-md-2">
     <i class="fa fa-comments-o"></i>
