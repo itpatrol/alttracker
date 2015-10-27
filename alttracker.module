@@ -445,11 +445,12 @@ function theme_alttracker($variables){
       $terms_links = array();
       foreach($node->terms as $term){
         $terms_links[] = array(
-          'title' => $term->name,
+          'title' => '<i class="fa fa-tags"></i> ' . check_plain($term->name),
           'href' => url("taxonomy/term/" . $term->tid),
+          'html' => true,
         );
       }
-      $title .= '<div class="terms"> <i class="fa fa-tags"></i> ' . theme('links', array('links' => $terms_links)) . '</div>';
+      $title .= '<div class="terms"> ' . theme('links', array('links' => $terms_links)) . '</div>';
     }
 
     $rows[] = array(
