@@ -1,4 +1,4 @@
-<div id="node-<?php print $node->nid; ?>"  class="row <?php  print $classes;?>"<?php print $attributes; ?>>
+<div id="node-<?php print $node->nid; ?>"  class="row <?php print $node->zebra;?> <?php  print $classes;?>"<?php print $attributes; ?>>
   <div class="title col-xs-12 col-sm-6 col-md-6">
     <div class="icon col-xs-1">
       <?php
