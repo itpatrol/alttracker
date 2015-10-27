@@ -32,7 +32,7 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
     $in_types = array();
     print_r($types);
     foreach($types as $type => $val){
-      if(0 != $val){
+      if($val){
         $in_types[] = $type;
       }
     }
