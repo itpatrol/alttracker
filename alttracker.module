@@ -420,7 +420,7 @@ function theme_alttracker($variables){
   
   drupal_add_css(drupal_get_path('module', 'alttracker') . '/alttracker.css');
   
-  return theme('table', array('rows' => $rows, 'header' => array('', t('Title'), t('Author'), t('Replies'), t('Last updated')), 'class' => array('alttracker')));
+  return theme('table', array('rows' => $rows, 'header' => array('', t('Title'), t('Author'), t('Replies'), t('Last updated')), 'attributes' => array('class' => 'altpager')) );
 }
 
 function theme_alttracker_icon($variables){
