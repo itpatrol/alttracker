@@ -38,6 +38,9 @@ function alttracker_theme() {
     'alttracker' => array(
       'variables' => array( 'nodes' => NULL ),
     ),
+    'alttracker_icon' => array(
+      'variables' => array( 'node' => NULL ),
+    ),
   );
 }
 
@@ -417,8 +420,36 @@ function template_preprocess_alttracker(&$variables) {
   }
 }
  */
-function theme_alttracker($data){
-  print_r($data);
+function theme_alttracker($variables){
+//  print_r($data);
+  $rows = array();
+  foreach($variables['nodes'] as $node){
+    
+    $rows[] = array(
+        'fa-icon' => theme('alttracker_icon', array('node' => $node)),
+        'title' => array('data' => l($node->title, 'node/' . $node->nid)),
+        'author' => array('data' => theme('username', array('account' => $node))),
+        'replies' => array('class' => array('replies'), 'data' => $comments),
+        'last updated' => array('data' => t('!time ago', array('!time' => format_interval(REQUEST_TIME - $node->changed)))),
+      );
+  }
+  
+  return theme('table', array('rows' => $rows, 'header' => array('', t('Title'), t('Author'), t('Replies'), t('Last updated'))));
+}
+
+function theme_alttracker_icon($variables){
+  $node = $variables['node'];
+  $icon = '<i class="fa fa-envelope-o"></i>';
+  if($node->new){
+    $icon = '<i class="fa fa-envelope"></i>';
+  }
+  if($node->sticky){
+    $icon = '<i class="fa fa-flag"></i>';
+  }
+  if($node->promote){
+    $icon = '<i class="fa fa-star"></i>';
+  }
+  return $icon;
 }
 
 /**
