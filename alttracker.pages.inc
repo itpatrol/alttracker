@@ -24,6 +24,7 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
     800 => 800,
     1000 => 1000,
   ));
+  altpager_count_all_items(1000);
   
   
   if ($account) {
