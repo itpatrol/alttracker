@@ -104,11 +104,14 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
 }
 
 function alttracker_nodes_load($nids){
-  $query = db_select('node', 'n')
-  ->join('node_comment_statistics', 'l', 'l.nid = n.nid');
+  $query = db_select('node', 'n');
+  $query->join('node_comment_statistics', 'l', 'l.nid = n.nid');
   
   $query->join('users', 'u', 'n.uid = u.uid');
-  $query->fields('n', array('title', 'type', 'uid'));
+  $query->condition('n.nid', $nids, 'IN')
+   ->fields('n', array('title', 'type', 'uid'))
+   ->fields('l', array('comment_count'))
+   ->fields('u', array('name'));
 
   /*
   $query->join('node_comment_statistics', 'l', 'l.nid = t.nid');
@@ -118,7 +121,7 @@ function alttracker_nodes_load($nids){
   $query->fields('l', array('comment_count'));
   $query->fields('u', array('name'));
 */
-  $query->condition('n.nid', $nids, 'IN');    
+  
   $result = $query->execute();
   return $result->fetchAll();
 }
