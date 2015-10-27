@@ -27,7 +27,7 @@
   </div>
   <div class="replies col-xs-3 col-sm-2 col-md-2">
     <i class="fa fa-comments-o"></i>
-    <?php print $cnode->omment_count; ?>
+    <?php print $node->comment_count; ?>
     <?php if ($node->new_replies): ?>
       <span class="new_replies">
         <a href="<?php print $node->new_url; ?>"><i class="fa fa-comment"></i>&nbsp;<?php print $node->new_replies; ?></a>
