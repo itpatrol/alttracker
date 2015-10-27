@@ -17,7 +17,7 @@
       ?>
     </div>
     <div class="col-xs-10 title">
-      <a href="<?php print $node_url; ?>"><?php print $title; ?></a>
+      <a href="<?php print $node->url; ?>"><?php print $title; ?></a>
     </div>
   </div>
   <div class="author col-xs-4 col-sm-2 col-md-2 col-xs-offset-1 col-sm-offset-0">
@@ -29,7 +29,7 @@
     <?php print $node->comment_count; ?>
     <?php if ($node->new_replies): ?>
       <span class="new_replies">
-        <a href="<?php print $node->new_url; ?>"><i class="fa fa-comment"></i>&nbsp;<?php print $node->new_replies; ?></a>
+        <a href="<?php print $node->url; ?>"><i class="fa fa-comment"></i>&nbsp;<?php print $node->new_replies; ?></a>
       </span>
     <?php endif; ?>
   </div>
