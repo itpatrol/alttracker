@@ -30,13 +30,12 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
   
   if($types = variable_get('alttracker_node_type')){
     $in_types = array();
-    print_r($types);
+
     foreach($types as $type => $val){
       if($val){
         $in_types[] = $type;
       }
     }
-      print_r($in_types);
     if(!empty($in_types)){
       print_r($in_types);
       $query->join('node', 'n', 'n.nid = t.nid');
