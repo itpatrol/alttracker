@@ -104,7 +104,7 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
 }
 
 function alttracker_nodes_load($nids){
-  $query = db_select('node', 'n');
+  $query = db_select('node', 'n', array('target' => 'slave'));
   $query->join('node_comment_statistics', 'l', 'l.nid = n.nid');
   
   $query->join('users', 'u', 'n.uid = u.uid');
