@@ -429,7 +429,6 @@ function theme_alttracker($variables){
       $comments = $node->comment_count;
 
       if ($node->new) {
-        $comments .= '<br />';
         $comments .= l(format_plural($node->new, '1 new', '@count new'), 'node/' . $node->nid, array('query' => comment_new_page_count($node->comment_count, $node->new_replies, $node), 'fragment' => 'new'));
       }
     }
