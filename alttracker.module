@@ -445,7 +445,7 @@ function theme_alttracker($variables){
       $terms_links = array();
       foreach($node->terms as $term){
         $terms_links[] = array(
-          'title' => checkplain($term->name),
+          'title' => check_plain($term->name),
           'href' => url("taxonomy/term/" . $term->tid),
         );
       }
