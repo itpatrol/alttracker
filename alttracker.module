@@ -426,10 +426,10 @@ function theme_alttracker($variables){
   foreach($variables['nodes'] as $node){
     $comments = 0;
     if ($node->comment_count) {
-      $comments = $node->comment_count;
+      $comments = '<i class="fa fa-comment-o"></i>' . ' ' . $node->comment_count;
 
       if ($node->new) {
-        $comments .= l(format_plural($node->new, '1 new', '@count new'), 'node/' . $node->nid, array('query' => comment_new_page_count($node->comment_count, $node->new_replies, $node), 'fragment' => 'new'));
+        $comments .= '<i class="fa fa-comment"></i>' . ' ' . l(format_plural($node->new, '1 new', '@count new'), 'node/' . $node->nid, array('query' => comment_new_page_count($node->comment_count, $node->new_replies, $node), 'fragment' => 'new'));
       }
     }
     $rows[] = array(
@@ -437,7 +437,7 @@ function theme_alttracker($variables){
         'title' => array('data' => $node->url),
         'author' => array('data' => theme('username', array('account' => $node))),
         'replies' => array('class' => array('replies'), 'data' => $comments),
-        'last updated' => array('data' => t('!time ago', array('!time' => format_interval(REQUEST_TIME - $node->changed)))),
+        'last updated' => array('data' => '<i class="fa fa-history"></i>' . ' ' . t('!time ago', array('!time' => format_interval(REQUEST_TIME - $node->changed)))),
       );
   }
   
