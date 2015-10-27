@@ -31,10 +31,6 @@ function alttracker_help($path, $arg) {
  */
 function alttracker_theme() {
   return array(
-    'alttracker_node' => array(
-      'variables' => array( 'node' => NULL ),
-      'template' => 'alttracker_node',
-    ),
     'alttracker' => array(
       'variables' => array( 'nodes' => NULL ),
     ),
@@ -441,36 +437,3 @@ function theme_alttracker_icon($variables){
   }
   return $icon;
 }
-
-/**
- * Process variables for alttracker_node.tpl.php.
- *
- * The $variables array contains the following arguments:
- * - $node: Node data.
- *
- * @see alttracker_node.tpl.php
- */
-function template_preprocess_alttracker_node(&$variables) {
-  $node = $variables['node'];
-  $variables['timeago'] = t('@time ago', array('@time' => format_interval(time() - $node->changed)));
-  $variables['url']     = $node->url;
-  $variables['title']   = check_plain($node->title);
-  $variables['sticky']  = $node->sticky;
-  $variables['promote'] = $node->promote;
-  $variables['status']  = $node->status;  
-  $variables['date']    = format_date($node->created);
-  $variables['name']    = theme('username', array('account' => $node));
-  
-  // Gather node classes.
-  $variables['classes_array'][] = drupal_html_class('node-' . $node->type);
-  if ($variables['promote']) {
-    $variables['classes_array'][] = 'node-promoted';
-  }
-  if ($variables['sticky']) {
-    $variables['classes_array'][] = 'node-sticky';
-  }
-  if (!$variables['status']) {
-    $variables['classes_array'][] = 'node-unpublished';
-  }
-}
-
