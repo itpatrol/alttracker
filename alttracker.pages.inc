@@ -35,6 +35,7 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
         $in_types[] = $type;
       }
     }
+      print_r($in_types);
     if(!empty($in_types)){
       print_r($in_types);
       $query->join('node', 'n', 'n.nid = t.nid');
