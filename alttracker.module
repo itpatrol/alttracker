@@ -35,6 +35,10 @@ function alttracker_theme() {
       'variables' => array( 'node' => NULL ),
       'template' => 'alttracker_node',
     ),
+    'alttracker' => array(
+      'variables' => array( 'nodes' => NULL ),
+      'template' => 'alttracker',
+    ),
   );
 }
 
@@ -400,13 +404,24 @@ function _alttracker_remove($nid, $uid = NULL, $changed = NULL) {
 }
 
 /**
- * Process variables for altpager.tpl.php.
+ * Process variables for alttracker.tpl.php.
  *
  * The $variables array contains the following arguments:
- * - $total: Count all items.
- * - $items: Items for output.
+ * - $nodes: Nodes array data.
  *
- * @see altpager.tpl.php
+ * @see alttracker.tpl.php
+ */
+function template_preprocess_alttracker(&$variables) {
+  print_r($variables);
+}
+
+/**
+ * Process variables for alttracker_node.tpl.php.
+ *
+ * The $variables array contains the following arguments:
+ * - $node: Node data.
+ *
+ * @see alttracker_node.tpl.php
  */
 function template_preprocess_alttracker_node(&$variables) {
   $node = $variables['node'];

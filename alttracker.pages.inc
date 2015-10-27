@@ -44,7 +44,7 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
   );
     
   $nodes = node_load_multiple($nids);
-  foreach($nodes as $node){
+  foreach($nodes as $nid => $node){
     $history = _forum_user_last_visit($node->nid); 
     $node->new_replies = comment_num_new($node->nid, $history);
     $node->new = $node->new_replies || ($node->last_comment_timestamp > $history);
@@ -53,11 +53,14 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
     }else{
       $node->url = url("node/$node->nid");
     }
-    $page['nodes'][] = array(
-      '#theme' => 'alttracker_node',
-      '#node' => $node,
-    );
+    $nodes[$nid] = $node;
   }
+  
+  $page['alttracker'] = array(
+    '#theme' => 'alttracker',
+    '#nodes' => $nodes,
+  );
+    
   drupal_add_css(drupal_get_path('module', 'alttracker') . '/alttracker.css');
   $page['last-pager'] = array(
     '#theme' => 'altpager',
