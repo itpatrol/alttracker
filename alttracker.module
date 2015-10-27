@@ -431,7 +431,7 @@ function theme_alttracker($variables){
     }
     $rows[] = array(
       'fa-icon' => theme('alttracker_icon', array('node' => $node)),
-      'title' => array('data' => $node->url),
+      'title' => array('data' => l($node->title, $node->url)),
       'author' => array('data' => '<i class="fa fa-user"></i>' . ' ' . theme('username', array('account' => $node))),
       'replies' => array('class' => array('replies'), 'data' => $comments),
       'last updated' => array('data' => '<i class="fa fa-history"></i>' . ' ' . t('!time ago', array('!time' => format_interval(REQUEST_TIME - $node->changed)))),
