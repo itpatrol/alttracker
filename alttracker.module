@@ -415,9 +415,9 @@ function template_preprocess_alttracker(&$variables) {
   $nodes = $variables['nodes'];
   $content = '';
   foreach($nodes as $node){
-    $content .= theme('alttracker_node', $node);
+//    $content .= theme('alttracker_node', $node);
   }
-  print_r($content);
+  print_r($variables);
 //  $variables['content'] = $content;
 }
 
