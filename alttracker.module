@@ -32,9 +32,7 @@ function alttracker_help($path, $arg) {
 function alttracker_theme() {
   return array(
     'alttracker_node' => array(
-      'variables' => array(
-        'node' => array(),
-      ),
+      'variables' => array( 'node' => NULL ),
       'template' => 'alttracker_node',
     ),
   );

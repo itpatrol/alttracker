@@ -47,7 +47,7 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
   foreach($nodes as $node){
     $page['nodes'][] = array(
       '#theme' => 'alttracker_node',
-      '#variables' => array('node' => $node),
+      '#node' => $node,
     );
   }
 
