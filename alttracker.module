@@ -409,6 +409,6 @@ function _alttracker_remove($nid, $uid = NULL, $changed = NULL) {
  * @see altpager.tpl.php
  */
 function template_preprocess_alttracker_node(&$variables) {
-  print_r($variables);
+//  print_r($variables);
 }
 
