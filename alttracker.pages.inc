@@ -109,7 +109,7 @@ function alttracker_nodes_load($nids){
   
   $query->join('users', 'u', 'n.uid = u.uid');
   $query->condition('n.nid', $nids, 'IN')
-   ->fields('n', array('title', 'type', 'uid', 'changed'))
+   ->fields('n', array('title', 'type', 'uid', 'changed', 'nid'))
    ->fields('l', array('comment_count'))
    ->fields('u', array('name'))
    ->orderBy('n.changed', 'DESC');
