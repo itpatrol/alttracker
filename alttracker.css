@@ -14,3 +14,16 @@ table.altpager .last-reply .fa {
   display: inline-block;
   padding-left: 2px;
 }
+
+.terms ul li a {
+  color: #ccc;
+  font-size: small;
+}
+
+.terms ul li a:before {
+  content: ',';
+}
+
+.terms ul li.first a:before {
+  content: '';
+}
