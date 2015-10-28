@@ -2,7 +2,6 @@ name = Alternative Tracker
 description = Enables tracking of recent content for users.
 dependencies[] = comment
 dependencies[] = altpager
-dependencies[] = formfilterapi
 dependencies[] = fontawesome
 package = Core
 version = 7.x-dev
