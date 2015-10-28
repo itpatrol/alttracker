@@ -53,10 +53,13 @@ function alttracker_admin_settings_submit($form, &$form_state) {
   $terms = array();
   foreach($vocabularies as $vocabulary){
     if(!empty($values['alttracker_vocabulary_' . $vocabulary->vid])){
+      
+      $tags_typed = drupal_explode_tags($values['alttracker_vocabulary_' . $vocabulary->vid]);
+      
       $term = db_select('taxonomy_term_data', 't')
       -> fields('t', array('tid', 'name'))
       -> condition('vid', $vocabulary->vid, '=')
-      -> condition('name', $values['alttracker_vocabulary_' . $vocabulary->vid], '=')
+      -> condition('name', $tags_typed , 'IN')
       -> execute()
       ->fetchObject();
       if($term){
