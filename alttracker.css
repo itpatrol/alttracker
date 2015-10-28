@@ -1,5 +1,6 @@
 table.altpager .author .fa,
 table.altpager .replies .fa,
+table.altpager .terms .fa
 table.altpager .last-reply .fa {
   color: #ddd;
 }
@@ -16,7 +17,7 @@ table.altpager .last-reply .fa {
 }
 
 .terms ul li a {
-  color: #ccc;
+  color: #888;
   font-size: small;
 }
 
