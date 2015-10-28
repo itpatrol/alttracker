@@ -113,7 +113,7 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
     '#weight' => 10,
   );
   $page['#sorted'] = TRUE;
-
+  print_r($page);
   return $page;
 }
 
