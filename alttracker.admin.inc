@@ -26,7 +26,7 @@ function alttracker_admin_settings($form, &$form_state) {
     '#description' => t('Select taxonomy terms to ignore in tracker outout.')
   );
   $vocabularies = taxonomy_vocabulary_get_names();
-  print_r($vocabularies);
+//  print_r($vocabularies);
   
   foreach($vocabularies as $vocabulary){
     $form['alttracker_vocabulary']['alttracker_vocabulary_' . $vocabulary->vid] = array(
