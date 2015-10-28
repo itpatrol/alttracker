@@ -20,10 +20,10 @@ table.altpager .last-reply .fa {
   font-size: small;
 }
 
-.terms ul li a:before {
+.terms ul li a:after {
   content: ',';
 }
 
-.terms ul li.first a:before {
+.terms ul li.first a:after {
   content: '';
 }
