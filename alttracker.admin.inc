@@ -5,6 +5,8 @@
  */
  
 function alttracker_admin_settings($form, &$form_state) {
+  $ignore_terms = variable_get('alttracker_ignore_terms');
+  drupal_set_message(print_r($ignore_terms,true));  
   $form['alttracker_taxonomy'] = array(
     '#type' => 'checkbox',
     '#title' => t('Display taxonomy'),
