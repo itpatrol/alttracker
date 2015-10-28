@@ -54,6 +54,11 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
     }
   }
   
+  if($ignore_terms = variable_get('alttracker_ignore_terms')){
+    $query->leftJoin('taxonomy_index', 'ti', 'n.nid = ti.nid');
+    $query->condition('ti.tid', $ignore_terms, 'NOT IN');
+  }
+  
   $nids = $query
     ->addTag('node_access')
     ->fields('t', array('nid', 'changed'))
