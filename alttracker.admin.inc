@@ -42,6 +42,8 @@ function alttracker_admin_settings($form, &$form_state) {
 
 function alttracker_autocomplete_callback($vid, $str){
   $matches = array();
+  echo $vid;
+  echo $str;
   $result = db_select('taxonomy_term_data', 't')
     -> fields('t', array('tid', 'name'))
     -> condition('vid', $vid, '=')
