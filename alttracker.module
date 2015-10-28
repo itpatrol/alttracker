@@ -111,24 +111,10 @@ function alttracker_menu() {
     'page arguments' => array(2),
     'access arguments' => array('administer alttracker'),
     'type' => MENU_CALLBACK,
+    'file' => 'alttracker.admin.inc',
   );
 
   return $items;
-}
-
-
-function alttracker_autocomplete_callback($vid, $str){
-  $matches = array();
-  $result = db_select('taxonomy_term_data', 't')
-    -> fields('t', array('tid', 'name'))
-    -> condition('vid', $vid, '=')
-    -> condition('name', $str.'%%', 'LIKE')
-    -> range(0, 10)
-    -> execute();
-  foreach ($result as $term) {
-    $matches[$term->tid] = check_plain($term->name);
-  }
-  drupal_json_output($matches);
 }
 
 /**

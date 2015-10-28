@@ -34,8 +34,35 @@ function alttracker_admin_settings($form, &$form_state) {
       '#title' => $vocabulary->name,
       '#autocomplete_path' => 'alttracker/autocomplete/' . $vocabulary->vid, 
       '#default_value' => variable_get('alttracker_vocabulary_' . $vocabulary->vid), 
+      '#description' => t('Comma or space separated'),
     );
   }
 
   return system_settings_form($form);
+}
+
+
+
+function alttracker_autocomplete_callback($vid, $str){
+  $matches = array();
+  $tags_typed = drupal_explode_tags($str);
+  $tag_last = drupal_strtolower(array_pop($tags_typed));
+  
+  $result = db_select('taxonomy_term_data', 't')
+    -> fields('t', array('tid', 'name'))
+    -> condition('vid', $vid, '=')
+    -> condition('name', $tag_last.'%%', 'LIKE')
+    -> range(0, 10)
+    -> execute();
+  $prefix = count($tags_typed) ? drupal_implode_tags($tags_typed) . ', ' : '';
+  
+  foreach ($result as $term) {
+    $n = $term->name;
+    // Term names containing commas or quotes must be wrapped in quotes.
+    if (strpos($term->name, ',') !== FALSE || strpos($term->name, '"') !== FALSE) {
+      $n = '"' . str_replace('"', '""', $term->name) . '"';
+    }
+    $matches[$prefix . $n] = check_plain($term->name);
+  }
+  drupal_json_output($matches);
 }
