@@ -55,7 +55,6 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
   }
   
   if($ignore_terms = variable_get('alttracker_ignore_terms')){
-    drupal_set_message(print_r($ignore_terms,true));
     $not_nids = db_select('taxonomy_index', 't')
       -> fields('t', array('nid'))
       -> condition('tid', $ignore_terms , 'IN')

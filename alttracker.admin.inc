@@ -6,7 +6,6 @@
  
 function alttracker_admin_settings($form, &$form_state) {
   $ignore_terms = variable_get('alttracker_ignore_terms');
-  drupal_set_message(print_r($ignore_terms,true));  
   $form['alttracker_taxonomy'] = array(
     '#type' => 'checkbox',
     '#title' => t('Display taxonomy'),
@@ -28,7 +27,6 @@ function alttracker_admin_settings($form, &$form_state) {
     '#description' => t('Select taxonomy terms to ignore in tracker outout.')
   );
   $vocabularies = taxonomy_vocabulary_get_names();
-//  print_r($vocabularies);
   
   foreach($vocabularies as $vocabulary){
     $form['alttracker_vocabulary']['alttracker_vocabulary_' . $vocabulary->vid] = array(
@@ -55,7 +53,6 @@ function alttracker_admin_settings_submit($form, &$form_state) {
     if(!empty($values['alttracker_vocabulary_' . $vocabulary->vid])){
       
       $tags_typed = drupal_explode_tags($values['alttracker_vocabulary_' . $vocabulary->vid]);
-      drupal_set_message(print_r($tags_typed,true));  
       $result = db_select('taxonomy_term_data', 't')
       -> fields('t', array('tid', 'name'))
       -> condition('vid', $vocabulary->vid, '=')
