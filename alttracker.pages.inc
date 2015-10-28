@@ -55,6 +55,7 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
   }
   
   if($ignore_terms = variable_get('alttracker_ignore_terms')){
+    drupal_set_message(print_r($ignore_terms,true));
     $query->leftJoin('taxonomy_index', 'ti', 't.nid = ti.nid');
     $query->condition('ti.tid', $ignore_terms, 'NOT IN');
   }
