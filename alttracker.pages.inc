@@ -114,7 +114,7 @@ function alttracker_nodes_load($nids){
    ->fields('t', array('changed'))
    ->fields('l', array('comment_count'))
    ->fields('u', array('name'))
-   ->orderBy('n.changed', 'DESC');
+   ->orderBy('t.changed', 'DESC');
 
   $result = $query->execute();
   return $result->fetchAll();
