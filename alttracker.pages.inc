@@ -15,8 +15,7 @@
 function alttracker_page($account = NULL, $set_title = FALSE) {
   
   altpager_items_elements(array(
-    20 => 20,
-    50 => 50,
+    60 => 60,
     100 => 100,
     200 => 200,
     400 => 400,
