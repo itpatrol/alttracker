@@ -1,7 +1,7 @@
-table.altpager .author .fa,
-table.altpager .replies .fa,
-table.altpager .terms .fa,
-table.altpager .last-reply .fa {
+.altpager .author .fa,
+.altpager .replies .fa,
+.altpager .terms .fa,
+.altpager .last-reply .fa {
   color: #ddd;
 }
 
