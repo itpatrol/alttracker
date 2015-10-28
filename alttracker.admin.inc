@@ -23,9 +23,32 @@ function alttracker_admin_settings($form, &$form_state) {
   $form['alttracker_vocabulary'] = array(
     '#type' => 'fieldset',
     '#title' => t('Ignore terms'),
+    '#description' => t('Select taxonomy terms to ignore in tracker outout.')
   );
   $vocabularies = taxonomy_vocabulary_get_names();
   print_r($vocabularies);
+  
+  foreach($vocabularies as $vocabulary){
+    $form['alttracker_vocabulary']['alttracker_vocabulary_' . $vocabulary['machine_name']] = array(
+      '#type' => 'textfield',
+      '#autocomplete_path' => 'alttracker/autocomplete/' . $vocabulary['vid'], 
+      '#default_value' => variable_get('alttracker_vocabulary_' . $vocabulary['machine_name']), 
+    );
+  }
 
   return system_settings_form($form);
+}
+
+function alttracker_autocomplete_callback($vid, $str){
+  $matches = array();
+  $result = db_select('taxonomy_term_data', 't')
+    -> fields('t', array('tid', 'name'))
+    -> condition('vid', $vid, '=')
+    -> condition('name', $str.'%%', 'LIKE')
+    -> range(0, 10)
+    -> execute();
+  foreach ($result as $term) {
+    $matches[$term->tid] = check_plain($term->name);
+  }
+  drupal_json_output($matches);
 }

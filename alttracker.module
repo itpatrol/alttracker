@@ -106,6 +106,13 @@ function alttracker_menu() {
     'file' => 'alttracker.admin.inc',
   );
   
+  $items['alttracker/autocomplete/%/%'] = array(
+    'page callback' => 'alttracker_autocomplete_callback',
+    'page arguments' => array(2,3),
+    'access arguments' => array('administer alttracker'),
+    'type' => MENU_CALLBACK,
+    'file' => 'alttracker.admin.inc',
+  );
 
   return $items;
 }
