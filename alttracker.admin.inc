@@ -29,10 +29,10 @@ function alttracker_admin_settings($form, &$form_state) {
   print_r($vocabularies);
   
   foreach($vocabularies as $vocabulary){
-    $form['alttracker_vocabulary']['alttracker_vocabulary_' . $vocabulary['machine_name']] = array(
+    $form['alttracker_vocabulary']['alttracker_vocabulary_' . $vocabulary->vid] = array(
       '#type' => 'textfield',
-      '#autocomplete_path' => 'alttracker/autocomplete/' . $vocabulary['vid'], 
-      '#default_value' => variable_get('alttracker_vocabulary_' . $vocabulary['machine_name']), 
+      '#autocomplete_path' => 'alttracker/autocomplete/' . $vocabulary->vid, 
+      '#default_value' => variable_get('alttracker_vocabulary_' . $vocabulary->vid), 
     );
   }
 
