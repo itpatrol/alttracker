@@ -32,7 +32,7 @@ function alttracker_admin_settings($form, &$form_state) {
     $form['alttracker_vocabulary']['alttracker_vocabulary_' . $vocabulary->vid] = array(
       '#type' => 'textfield',
       '#title' => $vocabulary->name,
-      '#autocomplete_path' => 'taxonomy/autocomplete/' . $vocabulary->vid, 
+      '#autocomplete_path' => 'alttracker/autocomplete/' . $vocabulary->vid, 
       '#default_value' => variable_get('alttracker_vocabulary_' . $vocabulary->vid), 
     );
   }
