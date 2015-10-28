@@ -24,6 +24,6 @@ table.altpager .last-reply .fa {
   content: ',';
 }
 
-.terms ul li.first a:after {
+.terms ul li.last a:after {
   content: '';
 }
