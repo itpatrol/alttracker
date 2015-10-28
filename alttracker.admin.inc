@@ -63,8 +63,7 @@ function alttracker_admin_settings_submit($form, &$form_state) {
     }
   }
   
-  
-  drupal_set_message(print_r($terms,true)); 
+  variable_set('alttracker_ignore_terms', $terms);
 }
 
 function alttracker_autocomplete_callback($vid, $str){
