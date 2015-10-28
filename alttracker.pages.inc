@@ -69,7 +69,7 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
     ->orderBy('t.changed', 'DESC')
     ->execute()
     ->fetchCol();
-  altpager_count_all_items(1000);
+  altpager_count_all_items(variable_get('alttracker_max_count', 1000));
   $page['first-pager'] = array(
     '#theme' => 'altpager',
     '#weight' => -10,
