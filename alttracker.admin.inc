@@ -44,7 +44,27 @@ function alttracker_admin_settings($form, &$form_state) {
 }
 
 function alttracker_admin_settings_submit($form, &$form_state) {
-  drupal_set_message(print_r($form_state,true)); 
+  $values = $form_state['values'];
+  
+  $vocabularies = taxonomy_vocabulary_get_names();
+  
+  $terms = array();
+  foreach($vocabularies as $vocabulary){
+    if(!empty($values['alttracker_vocabulary_' . $vocabulary->vid])){
+      $term = db_select('taxonomy_term_data', 't')
+      -> fields('t', array('tid', 'name'))
+      -> condition('vid', $vocabulary->vid, '=')
+      -> condition('name', $values['alttracker_vocabulary_' . $vocabulary->vid], '=')
+      -> execute()
+      ->fetchObject();
+      if($term){
+        $terms[] = $term->tid;
+      }
+    }
+  }
+  
+  
+  drupal_set_message(print_r($terms,true)); 
 }
 
 function alttracker_autocomplete_callback($vid, $str){
