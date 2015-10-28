@@ -6,7 +6,7 @@
  
 function alttracker_admin_settings($form, &$form_state) {
   $form['alttracker_max_count'] = array(
-    '#type' => 'checkbox',
+    '#type' => 'textfield',
     '#title' => t('Maximum items to display'),
     '#default_value' => variable_get('alttracker_max_count', 1000),
   );
