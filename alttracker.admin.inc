@@ -35,7 +35,8 @@ function alttracker_admin_settings($form, &$form_state) {
       '#autocomplete_path' => 'alttracker/autocomplete/' . $vocabulary->vid, 
       '#default_value' => variable_get('alttracker_vocabulary_' . $vocabulary->vid), 
       '#description' => t('Comma or space separated'),
-      '#size' => 500,
+      '#size' => 100,
+      '#maxlength' => 500,
     );
   }
 
