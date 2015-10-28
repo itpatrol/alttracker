@@ -61,7 +61,6 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
     ->orderBy('t.changed', 'DESC')
     ->execute()
     ->fetchCol();
-  print_r($nids);
 
   $page['first-pager'] = array(
     '#theme' => 'altpager',
