@@ -453,7 +453,7 @@ function theme_alttracker($variables){
           'html' => true,
         );
       }
-      $row['taxonomy'] = array('class' => array('taxonomy'), 'data' =>  theme('links', array('links' => $terms_links)) );
+      $row['taxonomy'] = array('class' => array('terms'), 'data' =>  theme('links', array('links' => $terms_links)) );
       //$title .= '<div class="terms"> ' . theme('links', array('links' => $terms_links)) . '</div>';
     }
     
