@@ -20,6 +20,12 @@ function alttracker_admin_settings($form, &$form_state) {
     '#options' => $options,
   );
 
+  $form['alttracker_vocabulary'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Ignore terms'),
+  );
+  $vocabularies = taxonomy_vocabulary_get_names();
+  print_r($vocabularies);
 
   return system_settings_form($form);
 }
