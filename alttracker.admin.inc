@@ -39,11 +39,13 @@ function alttracker_admin_settings($form, &$form_state) {
       '#maxlength' => 500,
     );
   }
-
+  $form['#validate'][] = 'alttracker_admin_settings_submit';
   return system_settings_form($form);
 }
 
-
+function alttracker_admin_settings_submit($form, &$form_state) {
+  drupal_set_message(print_r($form_state,true)); 
+}
 
 function alttracker_autocomplete_callback($vid, $str){
   $matches = array();
