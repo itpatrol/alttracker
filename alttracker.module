@@ -67,24 +67,16 @@ function alttracker_menu() {
     'weight' => 1,
     'file' => 'alttracker.pages.inc',
   );
-  $items['alttracker/my'] = array(
-    'title' => 'My recent content',
-    'page callback' => 'alttracker_page_my',
-    'access arguments' => array('access content'),
-    'type' => MENU_NORMAL_ITEM,
-    'file' => 'alttracker.pages.inc',
-  );
 
   $items['alttracker/all'] = array(
     'title' => 'All recent content',
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
-  $items['alttracker/%user_uid_optional'] = array(
+  $items['alttracker/my'] = array(
     'title' => 'My recent content',
-    'page callback' => 'alttracker_page',
+    'page callback' => 'alttracker_page_my',
     'access callback' => '_alttracker_myrecent_access',
     'access arguments' => array(1),
-    'page arguments' => array(1),
     'type' => MENU_LOCAL_TASK,
     'file' => 'alttracker.pages.inc',
   );
