@@ -5,6 +5,10 @@
  * User page callbacks for tracker.module.
  */
 
+function alttracker_page_my(){
+  global $user;
+  return alttracker_page($user);
+}
 
 /**
  * Page callback: prints a listing of active nodes on the site.
