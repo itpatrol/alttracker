@@ -75,8 +75,7 @@ function alttracker_menu() {
   $items['alttracker/my'] = array(
     'title' => 'My recent content',
     'page callback' => 'alttracker_page_my',
-    'access callback' => '_alttracker_myrecent_access',
-    'access arguments' => array(1),
+    'access arguments' => array('access content'),
     'type' => MENU_LOCAL_TASK,
     'file' => 'alttracker.pages.inc',
   );
@@ -199,14 +198,6 @@ function alttracker_cron() {
       variable_set('alttracker_index_nid', 0);
     }
   }
-}
-
-/**
- * Access callback for tracker/%user_uid_optional.
- */
-function _alttracker_myrecent_access($account) {
-  // This path is only allowed for authenticated users looking at their own content.
-  return $account->uid && ($GLOBALS['user']->uid == $account->uid) && user_access('access content');
 }
 
 /**
