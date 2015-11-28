@@ -89,7 +89,7 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
   foreach($nodes as $nid => $node){
     $history = _forum_user_last_visit($node->nid); 
     $node->new_replies = comment_num_new($node->nid, $history);
-    $node->new = $node->new_replies || ($node->last_comment_timestamp > $history);
+    $node->new = $node->new_replies || (isset($node->last_comment_timestamp) && $node->last_comment_timestamp > $history);
     if($node->new){
       $node->url = url("node/$node->nid", array('query' => comment_new_page_count($node->comment_count, $node->new_replies, $node), 'fragment' => 'new'));
     }else{
