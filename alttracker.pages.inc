@@ -67,7 +67,7 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
   }
   
   $nids = $query
-    ->addTag('node_access')
+    ->addTag('alttracker')
     ->fields('t', array('nid', 'changed'))
     ->condition('t.published', 1)
     ->orderBy('t.changed', 'DESC')
@@ -126,7 +126,7 @@ function alttracker_nodes_load($nids){
   $query->join('node_comment_statistics', 'l', 'l.nid = n.nid');
   $query->join('users', 'u', 'n.uid = u.uid');
   $query->condition('n.nid', $nids, 'IN')
-   ->fields('n', array('title', 'type', 'uid',  'nid', 'sticky', 'promote', 'status', 'created'))
+   ->fields('n')
    ->fields('t', array('changed'))
    ->fields('l', array('comment_count'))
    ->fields('u', array('name'))
