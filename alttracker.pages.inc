@@ -67,7 +67,7 @@ function alttracker_page($account = NULL, $set_title = FALSE) {
   }
   
   $nids = $query
-    ->addTag('alttracker')
+    ->addTag('alttracker_nodes_load')
     ->fields('t', array('nid', 'changed'))
     ->condition('t.published', 1)
     ->orderBy('t.changed', 'DESC')
