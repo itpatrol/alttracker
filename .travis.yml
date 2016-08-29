@@ -52,6 +52,7 @@ before_script:
   - drush dl drupal --destination=/var/www --default-major=7 --drupal-project-rename=drupal --y
   - cd /var/www/drupal
   - drush site-install -y --db-url=mysql://root@127.0.0.1/test --db-su='root' --db-su-pw=''
+  - drush en -y simpletest
   - ln -s $TRAVIS_BUILD_DIR sites/all/modules/local
 script: php scripts/run-tests.sh --class TrackerTest --url http://localhost/drupal --php `which php`
 after_failure:
