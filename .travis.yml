@@ -14,11 +14,14 @@ before_script:
   - sudo a2enmod rewrite actions fastcgi alias
   - sudo cp -f travis-ci/vhost.conf /etc/apache2/sites-available/default
   - sudo apachectl restart
-  - id
-  - env
-  - pwd
   - sudo chown travis:travis /var/www
 
+  # install drush globally
+  - composer global require drush/drush:6.*
+  # add composer's global bin directory to the path
+  # see: https://github.com/drush-ops/drush#install---composer
+  - export PATH="$HOME/.composer/vendor/bin:$PATH"
+  
   # Start PHP-FPM. There is no process manager available to start PHP-FPM on
   # Travis CI currently, so we have to locate and enable it manually.
   - sudo cp travis-ci/php-fpm.conf $HOME/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
@@ -42,17 +45,14 @@ before_script:
   - mysql -e 'SET GLOBAL wait_timeout = 5400;'
   - mysql -e 'create database test;'
 
+
+
   - cd /var/www
-  - wget https://ftp.drupal.org/files/projects/drupal-7.50.tar.gz
-  - tar -xzpf drupal-7.50.tar.gz
-  - mv drupal-7.50/* ./
-  - mv drupal-7.50/.htaccess ./
-  - rm -f drupal-7.50
-  # Install Backdrop with the installation script.
-  - chmod a+w . settings.php
-  - ./core/scripts/install.sh --db-url=mysql://travis:@127.0.0.1/test
-  - chmod go-w . settings.php
-script: env
+  - drush dl drupal --destination=/var/www --default-major=7 --drupal-project-rename=drupal --y
+  - cd /var/www/drupal
+  - drush site-install -y --db-url=mysql://root@127.0.0.1/test --db-su='root' --db-su-pw=''
+  - ln -s $TRAVIS_BUILD_DIR sites/all/modules/local
+script: sh ./scripts/run-tests.sh
 after_failure:
   - echo "Failures detected. Outputing additional logs:"
   - sudo cat /var/log/apache2/error.log
