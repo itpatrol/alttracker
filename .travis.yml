@@ -52,7 +52,7 @@ before_script:
   - cd /var/www/drupal
   - drush site-install -y --db-url=mysql://root@127.0.0.1/test --db-su='root' --db-su-pw=''
   - ln -s $TRAVIS_BUILD_DIR sites/all/modules/local
-script: sh ./scripts/run-tests.sh
+script: php scripts/run-tests.sh --class TrackerTest --url http://localhost/drupal
 after_failure:
   - echo "Failures detected. Outputing additional logs:"
   - sudo cat /var/log/apache2/error.log
