@@ -53,6 +53,9 @@ before_script:
   - cd /var/www/drupal
   - drush site-install -y --db-url=mysql://root@127.0.0.1/test --db-su='root' --db-su-pw=''
   - ln -s $TRAVIS_BUILD_DIR sites/all/modules/local
+  - cd sites/all/modules 
+  - git clone https://github.com/itpatrol/altpager.git
+  - cd /var/ww/drupal
   - drush en -y simpletest alttracker
 script: php scripts/run-tests.sh --class TrackerTest --url http://localhost/drupal --php `which php`
 after_failure:
