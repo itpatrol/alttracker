@@ -15,6 +15,7 @@ before_script:
   - sudo cp -f travis-ci/vhost.conf /etc/apache2/sites-available/default
   - sudo apachectl restart
   - sudo chown travis:travis /var/www
+  - which php
 
   # install drush globally
   - composer global require drush/drush:6.*
@@ -52,7 +53,7 @@ before_script:
   - cd /var/www/drupal
   - drush site-install -y --db-url=mysql://root@127.0.0.1/test --db-su='root' --db-su-pw=''
   - ln -s $TRAVIS_BUILD_DIR sites/all/modules/local
-script: php scripts/run-tests.sh --class TrackerTest --url http://localhost/drupal
+script: php scripts/run-tests.sh --class TrackerTest --url http://localhost/drupal --php `which php`
 after_failure:
   - echo "Failures detected. Outputing additional logs:"
   - sudo cat /var/log/apache2/error.log
