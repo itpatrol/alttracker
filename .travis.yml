@@ -57,7 +57,7 @@ before_script:
   - git clone https://github.com/itpatrol/altpager.git
   - cd /var/www/drupal
   - drush en -y simpletest alttracker
-script: php scripts/run-tests.sh --class TrackerTest --url http://localhost/drupal --php `which php`
+script: php scripts/run-tests.sh --file sites/all/modules/local/alttracker.test --url http://localhost/drupal --php `which php`
 after_failure:
   - echo "Failures detected. Outputing additional logs:"
   - sudo cat /var/log/apache2/error.log
